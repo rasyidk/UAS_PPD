@@ -23,8 +23,6 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-# Load the trained model
-@st.cache_resource
 def load_model():
     with open('model/random_forest_model.pkl', 'rb') as file:
         model = pickle.load(file)
