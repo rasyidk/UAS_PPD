@@ -36,10 +36,9 @@ def main():
     
     try:
         model = load_model()
-        
         # Create tabs for better organization
-        tab1, tab2, tab3 = st.tabs(["📊 Basic Information", "🔬 Laboratory Results", "📋 Medical History"])
-        
+        tab1, tab2, tab3 = st.tabs(["1. 📊 Basic Informationxxx", "2. 🔬 Laboratory Results", "3. 📋 Medical History"])
+
         with tab1:
             col1, col2 = st.columns(2)
             with col1:
@@ -92,76 +91,77 @@ def main():
                 dm = st.radio('Diabetes Mellitus', ['yes', 'no'], help='Select if patient has diabetes mellitus')
                 cad = st.radio('Coronary Artery Disease', ['yes', 'no'], help='Select if patient has coronary artery disease')
 
-        # Centered predict button
-        col1, col2, col3 = st.columns([1, 2, 1])
-        with col2:
-            predict_button = st.button('Predict', use_container_width=True)
+            # Move prediction section into tab3
+            st.markdown("---")
+            # Centered predict button
+            col1, col2, col3 = st.columns([1, 2, 1])
+            with col2:
+                predict_button = st.button('Predict', use_container_width=True)
 
-        if predict_button:
-            # Convert categorical inputs to numeric
-            rbc_num = 1 if rbc == 'abnormal' else 0
-            pc_num = 1 if pc == 'abnormal' else 0
-            pcc_num = 1 if pcc == 'present' else 0
-            ba_num = 1 if ba == 'present' else 0
-            htn_num = 1 if htn == 'yes' else 0
-            dm_num = 1 if dm == 'yes' else 0
-            cad_num = 1 if cad == 'yes' else 0
-            appet_num = 1 if appet == 'poor' else 0
-            pe_num = 1 if pe == 'yes' else 0
-            ane_num = 1 if ane == 'yes' else 0
+            if predict_button:
+                # Convert categorical inputs to numeric
+                rbc_num = 1 if rbc == 'abnormal' else 0
+                pc_num = 1 if pc == 'abnormal' else 0
+                pcc_num = 1 if pcc == 'present' else 0
+                ba_num = 1 if ba == 'present' else 0
+                htn_num = 1 if htn == 'yes' else 0
+                dm_num = 1 if dm == 'yes' else 0
+                cad_num = 1 if cad == 'yes' else 0
+                appet_num = 1 if appet == 'poor' else 0
+                pe_num = 1 if pe == 'yes' else 0
+                ane_num = 1 if ane == 'yes' else 0
 
-            # Create input array with correct data types and format
-            input_data = np.array([[
-                age,                    # age - Int64
-                bp,                     # bp - Int64
-                float(sg),             # sg - category
-                int(al),               # al - category
-                int(su),               # su - category
-                rbc_num,               # rbc - category (using numeric conversion)
-                pc_num,                # pc - category (using numeric conversion)
-                pcc_num,               # pcc - category (using numeric conversion)
-                ba_num,                # ba - category (using numeric conversion)
-                bgr,                   # bgr - Int64
-                float(bu),            # bu - object (convert to float)
-                float(sc),            # sc - float64
-                float(sod),           # sod - object (convert to float)
-                float(pot),           # pot - float64
-                float(hemo),          # hemo - float64
-                float(pcv),           # pcv - object (convert to float)
-                float(wbcc),          # wbcc - object (convert to float)
-                float(rbcc),          # rbcc - float64
-                htn_num,              # htn - category (using numeric conversion)
-                dm_num,               # dm - category (using numeric conversion)
-                cad_num,              # cad - category (using numeric conversion)
-                appet_num,            # appet - category (using numeric conversion)
-                pe_num,               # pe - category (using numeric conversion)
-                ane_num,              # ane - category (using numeric conversion)
-            ]])
+                # Create input array with correct data types and format
+                input_data = np.array([[
+                    age,                    # age - Int64
+                    bp,                     # bp - Int64
+                    float(sg),             # sg - category
+                    int(al),               # al - category
+                    int(su),               # su - category
+                    rbc_num,               # rbc - category (using numeric conversion)
+                    pc_num,                # pc - category (using numeric conversion)
+                    pcc_num,               # pcc - category (using numeric conversion)
+                    ba_num,                # ba - category (using numeric conversion)
+                    bgr,                   # bgr - Int64
+                    float(bu),            # bu - object (convert to float)
+                    float(sc),            # sc - float64
+                    float(sod),           # sod - object (convert to float)
+                    float(pot),           # pot - float64
+                    float(hemo),          # hemo - float64
+                    float(pcv),           # pcv - object (convert to float)
+                    float(wbcc),          # wbcc - object (convert to float)
+                    float(rbcc),          # rbcc - float64
+                    htn_num,              # htn - category (using numeric conversion)
+                    dm_num,               # dm - category (using numeric conversion)
+                    cad_num,              # cad - category (using numeric conversion)
+                    appet_num,            # appet - category (using numeric conversion)
+                    pe_num,               # pe - category (using numeric conversion)
+                    ane_num,              # ane - category (using numeric conversion)
+                ]])
 
-            try:
-                prediction = model.predict(input_data)
-                prediction_proba = model.predict_proba(input_data)
+                try:
+                    prediction = model.predict(input_data)
+                    prediction_proba = model.predict_proba(input_data)
 
-                # Display result in a nice box
-                st.markdown("---")
-                st.subheader("🔍 Prediction Result")
-                
-                result_col1, result_col2 = st.columns([2, 1])
-                with result_col1:
-                    if prediction[0] == 1:
-                        st.error('⚠️ High Risk: The patient is likely to have Chronic Kidney Disease')
-                    else:
-                        st.success('✅ Low Risk: The patient is likely to be healthy')
-                
-                with result_col2:
-                    st.metric(
-                        label="Risk Probability",
-                        value=f"{prediction_proba[0][1]:.1%}"
-                    )
+                    st.markdown("---")
+                    st.subheader("🔍 Prediction Result")
+                    
+                    result_col1, result_col2 = st.columns([2, 1])
+                    with result_col1:
+                        if prediction[0] == 1:
+                            st.error('⚠️ High Risk: The patient is likely to have Chronic Kidney Disease')
+                        else:
+                            st.success('✅ Low Risk: The patient is likely to be healthy')
+                    
+                    with result_col2:
+                        st.metric(
+                            label="Risk Probability",
+                            value=f"{prediction_proba[0][1]:.1%}"
+                        )
 
-            except Exception as e:
-                st.error(f"Error making prediction: {str(e)}")
-                
+                except Exception as e:
+                    st.error(f"Error making prediction: {str(e)}")
+
     except FileNotFoundError:
         st.error("Error: Model file not found. Please ensure the model file exists in the correct location.")
 
