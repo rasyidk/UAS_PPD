@@ -23,7 +23,7 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 def load_model():
-    with open('model/random_forest_model.pkl', 'rb') as file:
+    with open('model/random_forest_model1.pkl', 'rb') as file:
         model = pickle.load(file)
     return model
 
@@ -136,7 +136,6 @@ def main():
                 appet_num,            # appet - category (using numeric conversion)
                 pe_num,               # pe - category (using numeric conversion)
                 ane_num,              # ane - category (using numeric conversion)
-                1                     # class - target (dummy value for prediction)
             ]])
 
             try:
