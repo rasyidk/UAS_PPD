@@ -43,44 +43,54 @@ def main():
         with tab1:
             col1, col2 = st.columns(2)
             with col1:
-                age = st.number_input('Age (years)', min_value=0, max_value=100, value=40)
-                bp = st.number_input('Blood Pressure (mm/Hg)', min_value=0, max_value=200, value=80)
+                age = st.number_input('Age (years)', min_value=1, max_value=100, value=40, help='Enter age in years')
+                bp = st.number_input('Blood Pressure (mm/Hg)', min_value=50, max_value=180, value=80, help='Enter blood pressure in mm/Hg')
             
             with col2:
-                appet = st.radio('Appetite', ['good', 'poor'])
-                pe = st.radio('Pedal Edema', ['yes', 'no'])
-                ane = st.radio('Anemia', ['yes', 'no'])
+                appet = st.radio('Appetite', ['good', 'poor'], help='Select appetite condition')
+                pe = st.radio('Pedal Edema', ['yes', 'no'], help='Select if pedal edema is present')
+                ane = st.radio('Anemia', ['yes', 'no'], help='Select if anemia is present')
         
         with tab2:
             col1, col2 = st.columns(2)
             with col1:
-                sg = st.number_input('Specific Gravity', min_value=1.0, max_value=1.05, value=1.02, step=0.005)
-                al = st.number_input('Albumin', min_value=0, max_value=5, value=0)
-                su = st.number_input('Sugar', min_value=0, max_value=5, value=0)
-                bgr = st.number_input('Blood Glucose Random', min_value=0, max_value=500, value=100)
-                bu = st.number_input('Blood Urea', min_value=0, max_value=200, value=40)
-                sc = st.number_input('Serum Creatinine', min_value=0.0, max_value=5.0, value=1.0)
+                sg = st.selectbox('Specific Gravity', [1.005, 1.010, 1.015, 1.020, 1.025], 
+                                help='Select specific gravity value')
+                al = st.selectbox('Albumin', [0, 1, 2, 3, 4, 5], help='Select albumin level')
+                su = st.selectbox('Sugar', [0, 1, 2, 3, 4, 5], help='Select sugar level')
+                bgr = st.number_input('Blood Glucose Random (mgs/dl)', min_value=0, max_value=500, value=100,
+                                    help='Enter blood glucose random in mgs/dl')
+                bu = st.number_input('Blood Urea (mgs/dl)', min_value=0, max_value=200, value=40,
+                                   help='Enter blood urea in mgs/dl')
+                sc = st.number_input('Serum Creatinine (mgs/dl)', min_value=0.0, max_value=15.0, value=1.0,
+                                   help='Enter serum creatinine in mgs/dl')
             
             with col2:
-                sod = st.number_input('Sodium', min_value=0, max_value=200, value=135)
-                pot = st.number_input('Potassium', min_value=0.0, max_value=10.0, value=4.0)
-                hemo = st.number_input('Hemoglobin', min_value=0.0, max_value=20.0, value=12.0)
-                pcv = st.number_input('Packed Cell Volume', min_value=0, max_value=60, value=40)
-                wbcc = st.number_input('White Blood Cell Count', min_value=0, max_value=20000, value=8000)
-                rbcc = st.number_input('Red Blood Cell Count', min_value=0.0, max_value=8.0, value=4.5)
+                sod = st.number_input('Sodium (mEq/L)', min_value=0, max_value=200, value=135,
+                                    help='Enter sodium level in mEq/L')
+                pot = st.number_input('Potassium (mEq/L)', min_value=0.0, max_value=10.0, value=4.0,
+                                    help='Enter potassium level in mEq/L')
+                hemo = st.number_input('Hemoglobin (gms)', min_value=0.0, max_value=20.0, value=12.0,
+                                     help='Enter hemoglobin in gms')
+                pcv = st.number_input('Packed Cell Volume (%)', min_value=0, max_value=60, value=40,
+                                    help='Enter packed cell volume percentage')
+                wbcc = st.number_input('White Blood Cell Count (cells/cumm)', min_value=0, max_value=50000, value=8000,
+                                     help='Enter white blood cell count in cells/cumm')
+                rbcc = st.number_input('Red Blood Cell Count (millions/cmm)', min_value=0.0, max_value=8.0, value=4.5,
+                                     help='Enter red blood cell count in millions/cmm')
         
         with tab3:
             col1, col2 = st.columns(2)
             with col1:
-                rbc = st.radio('Red Blood Cells', ['normal', 'abnormal'])
-                pc = st.radio('Pus Cell', ['normal', 'abnormal'])
-                pcc = st.radio('Pus Cell Clumps', ['present', 'notpresent'])
-                ba = st.radio('Bacteria', ['present', 'notpresent'])
+                rbc = st.radio('Red Blood Cells', ['normal', 'abnormal'], help='Select red blood cells condition')
+                pc = st.radio('Pus Cell', ['normal', 'abnormal'], help='Select pus cell condition')
+                pcc = st.radio('Pus Cell Clumps', ['present', 'notpresent'], help='Select if pus cell clumps are present')
+                ba = st.radio('Bacteria', ['present', 'notpresent'], help='Select if bacteria are present')
             
             with col2:
-                htn = st.radio('Hypertension', ['yes', 'no'])
-                dm = st.radio('Diabetes Mellitus', ['yes', 'no'])
-                cad = st.radio('Coronary Artery Disease', ['yes', 'no'])
+                htn = st.radio('Hypertension', ['yes', 'no'], help='Select if patient has hypertension')
+                dm = st.radio('Diabetes Mellitus', ['yes', 'no'], help='Select if patient has diabetes mellitus')
+                cad = st.radio('Coronary Artery Disease', ['yes', 'no'], help='Select if patient has coronary artery disease')
 
         # Centered predict button
         col1, col2, col3 = st.columns([1, 2, 1])
