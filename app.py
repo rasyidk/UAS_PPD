@@ -37,7 +37,7 @@ def main():
     try:
         model = load_model()
         # Create tabs for better organization
-        tab1, tab2, tab3 = st.tabs(["1. 📊 Basic Informationxxx", "2. 🔬 Laboratory Results", "3. 📋 Medical History"])
+        tab1, tab2, tab3 = st.tabs(["📊 Basic Information", "🔬 Laboratory Results", "📋 Medical History"])
 
         with tab1:
             col1, col2 = st.columns(2)
