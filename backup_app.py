@@ -2,12 +2,14 @@ import streamlit as st
 import numpy as np
 import pickle
 
+# Page configuration
 st.set_page_config(
     page_title="Chronic Kidney Disease Prediction",
     page_icon="🏥",
     layout="wide"
 )
 
+# Custom CSS for better styling
 st.markdown("""
     <style>
     .main {
@@ -34,6 +36,7 @@ def main():
     
     try:
         model = load_model()
+        # Create tabs for better organization
         tab1, tab2, tab3 = st.tabs(["📊 Basic Information", "🔬 Laboratory Results", "📋 Medical History"])
 
         with tab1:
@@ -88,12 +91,15 @@ def main():
                 dm = st.radio('Diabetes Mellitus', ['yes', 'no'], help='Select if patient has diabetes mellitus')
                 cad = st.radio('Coronary Artery Disease', ['yes', 'no'], help='Select if patient has coronary artery disease')
 
+            # Move prediction section into tab3
             st.markdown("---")
+            # Centered predict button
             col1, col2, col3 = st.columns([1, 2, 1])
             with col2:
                 predict_button = st.button('Predict', use_container_width=True)
 
             if predict_button:
+                # Convert categorical inputs to numeric
                 rbc_num = 1 if rbc == 'abnormal' else 0
                 pc_num = 1 if pc == 'abnormal' else 0
                 pcc_num = 1 if pcc == 'present' else 0
@@ -105,31 +111,32 @@ def main():
                 pe_num = 1 if pe == 'yes' else 0
                 ane_num = 1 if ane == 'yes' else 0
 
+                # Create input array with correct data types and format
                 input_data = np.array([[
-                    int(age),              # age - Int64
-                    int(bp),               # bp - Int64
-                    int(sg * 1000),        # sg - int64 (converting from float to int by multiplying by 1000)
-                    int(al),               # al - int64
-                    int(su),               # su - int64
-                    int(rbc_num),          # rbc - int64
-                    int(pc_num),           # pc - int64
-                    int(pcc_num),          # pcc - int64
-                    int(ba_num),           # ba - int64
-                    int(bgr),              # bgr - Int64
-                    int(bu),               # bu - Int64
-                    float(sc),             # sc - float64
-                    int(sod),              # sod - Int64
-                    float(pot),            # pot - float64
-                    float(hemo),           # hemo - float64
-                    int(pcv),              # pcv - Int64
-                    float(wbcc),           # wbcc - float64
-                    float(rbcc),           # rbcc - float64
-                    int(htn_num),          # htn - int64
-                    int(dm_num),           # dm - int64
-                    int(cad_num),          # cad - int64
-                    int(appet_num),        # appet - int64
-                    int(pe_num),           # pe - int64
-                    int(ane_num),          # ane - int64
+                    age,                    # age - Int64
+                    bp,                     # bp - Int64
+                    float(sg),             # sg - category
+                    int(al),               # al - category
+                    int(su),               # su - category
+                    rbc_num,               # rbc - category (using numeric conversion)
+                    pc_num,                # pc - category (using numeric conversion)
+                    pcc_num,               # pcc - category (using numeric conversion)
+                    ba_num,                # ba - category (using numeric conversion)
+                    bgr,                   # bgr - Int64
+                    float(bu),            # bu - object (convert to float)
+                    float(sc),            # sc - float64
+                    float(sod),           # sod - object (convert to float)
+                    float(pot),           # pot - float64
+                    float(hemo),          # hemo - float64
+                    float(pcv),           # pcv - object (convert to float)
+                    float(wbcc),          # wbcc - object (convert to float)
+                    float(rbcc),          # rbcc - float64
+                    htn_num,              # htn - category (using numeric conversion)
+                    dm_num,               # dm - category (using numeric conversion)
+                    cad_num,              # cad - category (using numeric conversion)
+                    appet_num,            # appet - category (using numeric conversion)
+                    pe_num,               # pe - category (using numeric conversion)
+                    ane_num,              # ane - category (using numeric conversion)
                 ]])
 
                 try:
