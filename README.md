@@ -23,9 +23,11 @@ Chronic Kidney Disease (CKD) is a condition characterized by a gradual loss of k
 
 ## 📊 Dataset
 
-- Source: [UCI Machine Learning Repository - Chronic Kidney Disease](https://archive.ics.uci.edu/dataset/336/chronic+kidney+disease)
-- Number of records: 400
-- Target: Presence or absence of CKD
+- Base Source: UCI Machine Learning Repository - Chronic Kidney Disease
+- Original Records: 400 data
+- Extended Dataset: +200 additional data (manually added and cleaned based on original schema)
+- Final Training Dataset Size: ±600 records
+- Target: Presence or absence of CKD (binary classification)
 
 ### Main Features Used:
 | Parameter               | Description                    |
