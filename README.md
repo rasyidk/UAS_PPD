@@ -27,7 +27,7 @@ Chronic Kidney Disease (CKD) is a condition characterized by a gradual loss of k
 - Original Records: 400 data
 - Extended Dataset: +200 additional data (manually added and cleaned based on original schema)
 - Final Training Dataset Size: ±600 records
-- Target: Presence or absence of CKD (binary classification)
+- Target: Predicted risk probability of having Chronic Kidney Disease (CKD), displayed as a percentage.
 
 ### Main Features Used:
 | Parameter               | Description                    |
